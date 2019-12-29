@@ -1,0 +1,11 @@
+<div class="header-wrapper">
+  <nav class="navbar nav-custom">
+    <a class="navbar-brand">My Weather App</a>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-info" *ngFor="let toggle of reducer.toggles; let i = index" [ngClass]="{'active' : toggle.isSelected}">
+        <input type="radio" name="options" id="home-button" autocomplete="off" (click)="handleToggle(i)"> {{toggle.label}}
+      </label>
+    </div>
+  </nav>
+</div>
+

@@ -1,0 +1,25 @@
+[
+  {
+    "LocalObservationDateTime": "2019-12-27T03:11:00+01:00",
+    "EpochTime": 1577412660,
+    "WeatherText": "Rain",
+    "WeatherIcon": 18,
+    "HasPrecipitation": true,
+    "PrecipitationType": "Rain",
+    "IsDayTime": false,
+    "Temperature": {
+      "Metric": {
+        "Value": 11.5,
+        "Unit": "C",
+        "UnitType": 17
+      },
+      "Imperial": {
+        "Value": 53,
+        "Unit": "F",
+        "UnitType": 18
+      }
+    },
+    "MobileLink": "http://m.accuweather.com/en/fr/paris/623/current-weather/623?lang=en-us",
+    "Link": "http://www.accuweather.com/en/fr/paris/623/current-weather/623?lang=en-us"
+  }
+]

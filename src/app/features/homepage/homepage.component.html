@@ -1,0 +1,49 @@
+<div class="homepage-wrapper">
+  <div class="search-wrapper row">
+    <div class="col-lg-6">
+      <ng-select [items]="reducer.cities"
+                 bindLabel="name"
+                 placeholder="Select city"
+                 [(ngModel)]="reducer.autocompleteSearch"
+                 dropdownPosition="bottom"
+                 (search)="doSearch($event)"
+                 (close)="doSelect()"
+                 (clear)="emptyList()">
+      </ng-select>
+    </div>
+  </div>
+  <div class="row center">
+    <div class="current-weather-wrapper col-lg-10" *ngIf="reducer.autocompleteSearch && reducer.currentCondition">
+      <div class="card">
+        <div class="card-header text-white bg-info">
+          {{reducer.autocompleteSearch.name}}
+          <span (click)="favoriteHandle()">
+            <i class="fa fa-heart heart-icon" [ngClass]="{'is-favorite': reducer.autocompleteSearch.isFavorite}"></i>
+          </span>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{reducer.currentCondition.text}}</p>
+          <h5 class="card-title">
+            <img *ngIf="reducer.currentCondition.icon" class="condition-image" src="../../../assets/images/{{reducer.currentCondition.icon  + '-s.png'}}">
+            <span class="condition-text">{{reducer.currentCondition.value | temperature: reducer.currentCondition.unit}}</span>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row center" *ngIf="reducer.autocompleteSearch && reducer.forecast">
+    <div class="current-weather-wrapper forecast-card-wrapper col-lg-2" *ngFor="let day of reducer.forecast; let i = index">
+      <div class="card">
+        <div class="card-body my-card-body">
+            <p class="card-text">{{day.date | date: 'EEEE'}}</p>
+          <img *ngIf="day.icon" src="../../../assets/images/{{day.icon  + '-s.png'}}">
+          <p class="card-text">{{day.text}}</p>
+          <h5 class="card-title">
+            <div class="condition-text">{{day.value | temperature: day.unit}}</div>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

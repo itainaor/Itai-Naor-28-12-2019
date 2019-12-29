@@ -1,0 +1,34 @@
+.homepage-wrapper{
+  .search-wrapper{
+    display: flex;
+    justify-content: center;
+  }
+  .center{
+    justify-content: center;
+  }
+  .current-weather-wrapper{
+    justify-content: center;
+
+    .heart-icon{
+      float: right;
+      position: relative;
+      top: 6px;
+      cursor: pointer;
+
+      &:hover{
+        color: red;
+      }
+
+      &.is-favorite{
+        color: red;
+      }
+    }
+
+    .condition-image{
+      margin-right: 10px;
+    }
+  }
+  .forecast-card-wrapper{
+    text-align: center;
+  }
+}
