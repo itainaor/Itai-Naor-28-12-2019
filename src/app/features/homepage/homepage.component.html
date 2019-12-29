@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="row center">
-    <div class="current-weather-wrapper col-lg-10" *ngIf="reducer.autocompleteSearch && reducer.currentCondition">
+    <div class="current-weather-wrapper col-lg-10" *ngIf="reducer.autocompleteSearch && reducer.currentCondition.text">
       <div class="card">
         <div class="card-header text-white bg-info">
           {{reducer.autocompleteSearch.name}}

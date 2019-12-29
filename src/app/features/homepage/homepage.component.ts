@@ -42,7 +42,7 @@ export class HomepageComponent implements OnInit {
       this.store.dispatch( {type: ACTION_UPDATE_CITIES, payload: cities});
       return;
     }
-    this.http.get('http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=1TPRKkt33Ems8fy00UWSEQknQ95m6GtL&q=' + e.term).subscribe((response: any[]) => {
+    this.http.get('https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=1TPRKkt33Ems8fy00UWSEQknQ95m6GtL&q=' + e.term).subscribe((response: any[]) => {
         response.forEach((item) => {
           cities = [...cities, {id: item.Key, name: item.LocalizedName}];
         });
@@ -59,8 +59,8 @@ export class HomepageComponent implements OnInit {
     this.reducer.autocompleteSearch.isFavorite = this.getFavoriteStatus();
     this.store.dispatch({type: ACTION_AUTOCOMPLETE_SEARCH, payload: this.reducer.autocompleteSearch});
 
-    const request1 =  this.http.get('http://dataservice.accuweather.com/currentconditions/v1/' + this.reducer.autocompleteSearch.id + '?apikey=1TPRKkt33Ems8fy00UWSEQknQ95m6GtL');
-    const request2 = this.http.get('http://dataservice.accuweather.com/forecasts/v1/daily/5day/' + this.reducer.autocompleteSearch.id + '?apikey=1TPRKkt33Ems8fy00UWSEQknQ95m6GtL&metric=true');
+    const request1 =  this.http.get('https://dataservice.accuweather.com/currentconditions/v1/' + this.reducer.autocompleteSearch.id + '?apikey=1TPRKkt33Ems8fy00UWSEQknQ95m6GtL');
+    const request2 = this.http.get('https://dataservice.accuweather.com/forecasts/v1/daily/5day/' + this.reducer.autocompleteSearch.id + '?apikey=1TPRKkt33Ems8fy00UWSEQknQ95m6GtL&metric=true');
 
     forkJoin(request1, request2).subscribe((response) => {
       const currentCondition = {value: this.extractor.getMetricValue(response[0]), unit: this.extractor.getMetricUnit(response[0]),
