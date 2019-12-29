@@ -33,6 +33,8 @@
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",
+    "node-sass": "^4.13.0",
+    "nodemon": "^2.0.2",
     "path": "^0.12.7",
     "rxjs": "~6.4.0",
     "strapi-hook-mongoose": "^3.0.0-beta.17.8",
