@@ -14,7 +14,7 @@ export interface AppReducerState {
     name: string,
     isFavorite: boolean;
   };
-  currentCondition: Array<any>;
+  currentCondition: {};
   forecast: Array<any>;
   cities: Array<any>;
   favorites: Array<any>;
@@ -23,7 +23,7 @@ export interface AppReducerState {
 
 const initialState: AppReducerState = {
   autocompleteSearch: {id: '215854', name: 'Tel Aviv', isFavorite: false},
-  currentCondition: [],
+  currentCondition: null,
   forecast: [],
   cities: [],
   favorites: [],

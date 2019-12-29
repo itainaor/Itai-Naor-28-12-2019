@@ -23,7 +23,6 @@ import {Store} from '@ngrx/store';
 export class HomepageComponent implements OnInit {
 
   public reducer: AppReducerState;
-  public selectedCity: any;
 
   constructor(private store: Store<AppReducerState>, private http: HttpClient, private extractor: ExtractorService, private toasterService: ToasterService, private user: UserService) { }
 
@@ -32,13 +31,12 @@ export class HomepageComponent implements OnInit {
       this.reducer  = state;
     }, () => {
     });
-    this.selectedCity = Object.assign({}, this.reducer.autocompleteSearch);
     this.doSelect();
   }
 
   doSearch(e) {
     let cities = [];
-    if (!e.term) {
+    if (!e.term) { // clear list if search field is empty
       this.store.dispatch( {type: ACTION_UPDATE_CITIES, payload: cities});
       return;
     }
@@ -48,7 +46,7 @@ export class HomepageComponent implements OnInit {
         });
         this.store.dispatch( {type: ACTION_UPDATE_CITIES, payload: cities});
       }, (e) => {
-      this.toasterService.pop('error', 'Error', 'No date was received');
+        this.toasterService.pop('error', 'Error', 'No date was received');
     });
   }
 
@@ -59,9 +57,8 @@ export class HomepageComponent implements OnInit {
     this.reducer.autocompleteSearch.isFavorite = this.getFavoriteStatus();
     this.store.dispatch({type: ACTION_AUTOCOMPLETE_SEARCH, payload: this.reducer.autocompleteSearch});
 
-    const request1 =  this.http.get('https://dataservice.accuweather.com/currentconditions/v1/' + this.reducer.autocompleteSearch.id + '?apikey=1TPRKkt33Ems8fy00UWSEQknQ95m6GtL');
+    const request1 = this.http.get('https://dataservice.accuweather.com/currentconditions/v1/' + this.reducer.autocompleteSearch.id + '?apikey=1TPRKkt33Ems8fy00UWSEQknQ95m6GtL');
     const request2 = this.http.get('https://dataservice.accuweather.com/forecasts/v1/daily/5day/' + this.reducer.autocompleteSearch.id + '?apikey=1TPRKkt33Ems8fy00UWSEQknQ95m6GtL&metric=true');
-
     forkJoin(request1, request2).subscribe((response) => {
       const currentCondition = {value: this.extractor.getMetricValue(response[0]), unit: this.extractor.getMetricUnit(response[0]),
                               icon: this.extractor.getWeatherIcon(response[0]), text: this.extractor.getWeatherText(response[0])};
@@ -85,6 +82,8 @@ export class HomepageComponent implements OnInit {
   }
 
   emptyList() {
+    this.store.dispatch({type: ACTION_AUTOCOMPLETE_SEARCH, payload: null});
+    this.store.dispatch({type: ACTION_CURRENT_CONDITION, payload: null});
     this.store.dispatch({type: ACTION_UPDATE_CITIES, payload: []});
     this.store.dispatch({type: ACTION_FORECAST, payload: []});
   }
