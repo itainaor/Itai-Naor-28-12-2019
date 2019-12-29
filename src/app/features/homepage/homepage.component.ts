@@ -43,7 +43,7 @@ export class HomepageComponent implements OnInit {
       return;
     }
     this.http.get('http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=1TPRKkt33Ems8fy00UWSEQknQ95m6GtL&q=' + e.term).subscribe((response: any[]) => {
-        response.forEach((iFtem) => {
+        response.forEach((item) => {
           cities = [...cities, {id: item.Key, name: item.LocalizedName}];
         });
         this.store.dispatch( {type: ACTION_UPDATE_CITIES, payload: cities});
